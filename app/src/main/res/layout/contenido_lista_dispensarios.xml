@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No. Distensario:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/NoDispensario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dispensario:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt1" />
+
+            <TextView
+                android:id="@+id/Marca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/NoDispensario" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/Modelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Marca" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serie:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/Serie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serie:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Modelo" />
+
+            <TextView
+                android:id="@+id/NomProducto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Producto1:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <TextView
+                android:id="@+id/Producto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serie:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Serie" />
+
+            <TextView
+                android:id="@+id/NomProducto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Producto1:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/NomProducto1" />
+
+            <TextView
+                android:id="@+id/Producto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serie:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Producto1" />
+
+            <TextView
+                android:id="@+id/NomProducto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Producto1:"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/NomProducto2"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/Producto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serie:"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif-light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Producto2"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

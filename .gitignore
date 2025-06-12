@@ -1,0 +1,92 @@
+# === Archivos de Android Studio / IntelliJ ===
+*.iml
+.idea/
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+
+# Configuración específica del IDE
+.idea/*
+!*.idea/codeStyles
+*.ipr
+*.iws
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos generados por gradle
+**/build/
+**/bin/
+**/gen/
+**/out/
+!gradle-wrapper.jar
+
+# Archivos temporales de log
+*.log
+
+# Archivos de caché de Android Studio
+.cxx/
+local.properties
+
+# Archivos de Proguard
+proguard/
+
+# Archivos del sistema operativo
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Archivos de keystore (si los tienes)
+*.jks
+*.keystore
+
+# Configuración personal
+*.env
+*.key
+*.pem
+
+# NDK / CMake
+.cmake/
+*.cmake
+
+# Archivos de test coverage
+coverage/
+*.ec
+
+# Flutter (si usas Flutter)
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.packages
+pubspec.lock
+
+# Firebase crashlytics
+fabric.properties
+crashlytics-build.properties
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# VSCode (si también abres con VS Code)
+.vscode/
+
+# Archivos de configuración temporal del sistema operativo
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Archivos de backup
+*.orig
+
+# Archivos de lint
+lint/intermediates/
+lint/generated/
+
+**/utils/Constantes.java
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/PermisoCre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="6pt"
+                android:fontFamily="sans-serif-light"
+                android:text="id"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/RazonSocial"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="nombre"
+                android:textSize="10pt"
+                app:layout_constraintTop_toBottomOf="@+id/PermisoCre"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

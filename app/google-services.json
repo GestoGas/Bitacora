@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800089057476",
+    "project_id": "gbitacora-bcea3",
+    "storage_bucket": "gbitacora-bcea3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800089057476:android:774e59c1af87d92e518191",
+        "android_client_info": {
+          "package_name": "com.gestogas.gestoline"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjgnrrpQmhCyQzc46lkpBGt2qgiMor4yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

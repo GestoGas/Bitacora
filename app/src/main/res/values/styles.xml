@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">19sp</item> <!-- Tamaño de fuente -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Opcional: color del texto -->
+        <item name="android:fontFamily">sans-serif-medium</item> <!-- Opcional: fuente de texto -->
+    </style>
+
+</resources>
