@@ -70,6 +70,12 @@ public class adapterRecepcionBitacora extends RecyclerView.Adapter<adapterRecepc
         searchlList.addAll(newData);
     }
 
+    public void clearData() {
+        this.dataList.clear();
+        this.searchlList.clear();
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

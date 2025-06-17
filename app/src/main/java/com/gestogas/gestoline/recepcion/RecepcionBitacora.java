@@ -193,6 +193,8 @@ public class RecepcionBitacora extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         DialogHelper.hideProgressDialog();
+                        itemList.clear();
+                        adapter.clearData();
                         mostrarError();
                     }
                 });
