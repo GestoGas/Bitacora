@@ -411,7 +411,6 @@ public class MantenimientoCorrectivoDetalle extends AppCompatActivity implements
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
-            setResult(RESULT_OK);
             finish();
         }
         return super.onKeyDown(keyCode, event);
@@ -419,7 +418,6 @@ public class MantenimientoCorrectivoDetalle extends AppCompatActivity implements
 
     @Override
     public boolean onSupportNavigateUp() {
-        setResult(RESULT_OK);
         finish();
         return true;
     }
