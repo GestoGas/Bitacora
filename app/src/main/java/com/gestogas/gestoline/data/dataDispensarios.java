@@ -1,5 +1,7 @@
 package com.gestogas.gestoline.data;
 
+import java.util.Objects;
+
 public class dataDispensarios {
 
     public String id;
@@ -74,6 +76,11 @@ public class dataDispensarios {
 
     public String getNomproducto3() {
         return nomproducto3;
+    }
+
+    @Override
+    public String toString() {
+        return (!Objects.equals(this.id, "0")) ? "Dispensario: " + nodispensario + ", " + marca : "Seleccione";
     }
 
 }
