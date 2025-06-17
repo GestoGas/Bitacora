@@ -27,6 +27,18 @@
         android:theme="@style/Theme.GestoLine"
         tools:targetApi="31">
         <activity
+            android:name=".profeco.ProfecoDetalle"
+            android:exported="false" />
+        <activity
+            android:name=".MiGBitacora"
+            android:exported="false" />
+        <activity
+            android:name=".profeco.ProfecoCrearEditar"
+            android:exported="false" />
+        <activity
+            android:name=".profeco.Profeco"
+            android:exported="false" />
+        <activity
             android:name=".DispensarioCrearEditar"
             android:exported="false"
             android:theme="@style/Theme.GestoLine" />
@@ -34,9 +46,6 @@
             android:name=".Dispensarios"
             android:exported="false"
             android:theme="@style/Theme.GestoLine" />
-        <activity
-            android:name=".Firma"
-            android:exported="false" />
         <activity
             android:name=".mantenimiento.MantenimientoCorrectivoCrearEditar"
             android:exported="false" />
