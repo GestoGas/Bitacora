@@ -16,6 +16,7 @@ import com.gestogas.gestoline.DiffUtil.MantenimeintoDiff;
 import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivoDetalle;
 import com.gestogas.gestoline.R;
 import com.gestogas.gestoline.data.dataMantenimiento;
+import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoDos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,9 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
 
         int id = item.getId();
         String idequipo = item.getIdequipo();
+        String numVerificacion = item.getNumverificacion();
+        String descripcion = item.getDescripcion();
+
         holder.TxtFolio.setText(item.getFolio());
         holder.TxtDescripcion.setText(item.getDescripcion());
         holder.TxtFechaHora.setText(item.getFecha()+ ", " + item.getHora());
@@ -92,6 +96,20 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
                     Intent didactic = new Intent(context, MantenimientoCorrectivoDetalle.class);
                     didactic.putExtra("idMantenimiento", String.valueOf(id));
                     activity.startActivityForResult(didactic, 1);
+
+                }else{
+
+                    if(numVerificacion.equals("1") || numVerificacion.equals("2")){
+
+                        Activity activity = (Activity) context;
+                        Intent didactic = new Intent(context, MantenimientoPreventivoDos.class);
+                        didactic.putExtra("idMantenimiento", String.valueOf(id));
+                        didactic.putExtra("NumeroEquipo", idequipo);
+                        didactic.putExtra("NombreEquipo", descripcion);
+                        didactic.putExtra("numVerificacion", numVerificacion);
+                        activity.startActivityForResult(didactic, 1);
+
+                    }
 
                 }
 
