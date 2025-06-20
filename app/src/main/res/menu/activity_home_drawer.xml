@@ -14,18 +14,18 @@
         <item
             android:id="@+id/nav_tanques"
             android:icon="@drawable/ic_menu_vistas"
-            android:title="Tanques"/>
+            android:title="@string/menu_tanques"/>
 
         <item
             android:id="@+id/nav_extintores"
-            android:title="Extintores"
+            android:title="@string/menu_extintores"
             android:icon="@drawable/ic_menu_vistas"
             tools:ignore="HardcodedText" />
 
         <item
             android:id="@+id/nav_estaciones"
             android:icon="@drawable/ic_menu_vistas"
-            android:title="Estaciones"
+            android:title="@string/menu_estaciones"
             />
 
         <item
