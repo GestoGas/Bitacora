@@ -559,8 +559,6 @@ public class RecepcionBitacoraCrearEditar extends BaseActivity {
     }
     private void seleccionarTanquePorId(Spinner spinner, int idBuscado) {
 
-        Log.d("seleccionarTanquePorId", "idBuscado: " + idBuscado);
-
         ArrayAdapter<dataTanques> adapter = (ArrayAdapter<dataTanques>) spinner.getAdapter();
         for (int i = 0; i < adapter.getCount(); i++) {
             dataTanques tanque = adapter.getItem(i);
@@ -789,7 +787,6 @@ public class RecepcionBitacoraCrearEditar extends BaseActivity {
                         } catch (Exception e) {
                             ToastUtils.show(RecepcionBitacoraCrearEditar.this, e.toString(), ToastUtils.INFO);
                             hideProgressDialog();
-                            Log.e("Error 1", response);
                         }
                     }
                 },
@@ -798,7 +795,6 @@ public class RecepcionBitacoraCrearEditar extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         ToastUtils.show(RecepcionBitacoraCrearEditar.this, error.toString(), ToastUtils.INFO);
                         hideProgressDialog();
-                        Log.e("Error 2", error.toString());
                     }
                 }) {
             @Override

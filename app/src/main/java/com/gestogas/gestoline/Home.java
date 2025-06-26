@@ -5,20 +5,29 @@ import static com.gestogas.gestoline.utils.Constantes.URL_SERVIDOR;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.gestogas.gestoline.controllers.AppController;
 import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivo;
+import com.gestogas.gestoline.profeco.Profeco;
 import com.gestogas.gestoline.recepcion.RecepcionBitacora;
 import com.gestogas.gestoline.utils.DialogHelper;
 import com.gestogas.gestoline.utils.LocationHelper;
@@ -30,13 +39,25 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.cardview.widget.CardView;
+import android.widget.GridLayout;
 
 import com.gestogas.gestoline.databinding.ActivityHomeBinding;
+
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Home extends BaseActivity {
 
@@ -46,12 +67,16 @@ public class Home extends BaseActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private LocationHelper locationHelper;
 
+    private LinearLayout rootLayout;
+    private static final String VERSION_URL = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         locationHelper = new LocationHelper(this);
+        rootLayout = findViewById(R.id.root_home);
 
         String razon_social = AppController.getInstance().GetRazonSocial();
         String permiso_cre = AppController.getInstance().GetPermisoCre();
@@ -110,9 +135,19 @@ public class Home extends BaseActivity {
         Direccion.setText(direccion);
 
         if (AppController.getInstance().GetConfigProfeco() == 1){
-            Button Profeco = findViewById(R.id.Profeco);
+            CardView Profeco = findViewById(R.id.Profeco);
             Profeco.setVisibility(View.VISIBLE);
         }
+
+        GridLayout gridLayout = findViewById(R.id.gridCards);
+        int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout.setColumnCount(4); // 4 columnas en horizontal
+        } else {
+            gridLayout.setColumnCount(2); // 1 columna en vertical
+        }
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -155,6 +190,13 @@ public class Home extends BaseActivity {
                     finish();
 
                     return true;
+                }else if (id == R.id.nav_migbitacora) {
+
+                    Intent intent = new Intent(getApplicationContext(), MiGBitacora.class);
+                    startActivity(intent);
+                    finish();
+
+                    return true;
                 }else if (id == R.id.nav_salir) {
 
                     DialogHelper.showProgressDialog(Home.this);
@@ -180,7 +222,7 @@ public class Home extends BaseActivity {
 
         });
 
-
+        checkForUpdate();
 
     }
 
@@ -227,9 +269,9 @@ public class Home extends BaseActivity {
         finish();
     }
     public void ProfecoBitacora(View view){
-//        Intent intent = new Intent (getApplicationContext(), Profeco.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent (getApplicationContext(), Profeco.class);
+        startActivity(intent);
+        finish();
     }
 
     private void validacionUbicacion(){
@@ -310,5 +352,100 @@ public class Home extends BaseActivity {
             }
         }
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+
+    private void checkForUpdate() {
+        StringRequest request = new StringRequest(Request.Method.GET, VERSION_URL, response -> {
+            try {
+                JSONObject obj = new JSONObject(response);
+                int latestVersionCode = obj.getInt("version_code");
+                String apkUrl = obj.getString("apk_url");
+                String changelog = obj.getString("changelog");
+
+                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                int currentVersionCode = pInfo.versionCode;
+
+                if (latestVersionCode > currentVersionCode) {
+                    showUpdateBanner(apkUrl, changelog);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, error -> Log.e("UpdateCheck", "Error al consultar versión"));
+
+        Volley.newRequestQueue(this).add(request);
+    }
+
+    private void showUpdateBanner(String apkUrl, String changelog) {
+        View banner = getLayoutInflater().inflate(R.layout.update_banner, null);
+        TextView mensaje = banner.findViewById(R.id.update_message);
+        Button actualizar = banner.findViewById(R.id.update_button);
+
+        mensaje.setText("Nueva versión disponible:\n" + changelog);
+
+        actualizar.setOnClickListener(v -> {
+            rootLayout.removeView(banner);
+            showDownloadDialog(apkUrl);
+        });
+
+        rootLayout.addView(banner, 0);
+    }
+
+    private void showDownloadDialog(String apkUrl) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Descargando actualización...");
+
+        final ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        progressBar.setMax(100);
+        builder.setView(progressBar);
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        new Thread(() -> {
+            try {
+                URL url = new URL(apkUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                int totalSize = connection.getContentLength();
+                InputStream input = new BufferedInputStream(url.openStream());
+                File outputFile = new File(getExternalFilesDir(null), "update.apk");
+                FileOutputStream output = new FileOutputStream(outputFile);
+
+                byte[] data = new byte[1024];
+                long total = 0;
+                int count;
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    output.write(data, 0, count);
+                    int progress = (int) ((total * 100) / totalSize);
+                    runOnUiThread(() -> progressBar.setProgress(progress));
+                }
+
+                output.flush();
+                output.close();
+                input.close();
+                dialog.dismiss();
+
+                runOnUiThread(() -> installApk(outputFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+                dialog.dismiss();
+            }
+        }).start();
+    }
+
+    private void installApk(File file) {
+        Uri apkUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 
 }

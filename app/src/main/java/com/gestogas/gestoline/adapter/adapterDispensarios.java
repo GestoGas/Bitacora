@@ -2,6 +2,7 @@ package com.gestogas.gestoline.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,9 @@ import com.gestogas.gestoline.R;
 import com.gestogas.gestoline.data.dataDispensarios;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class adapterDispensarios extends RecyclerView.Adapter<adapterDispensarios.ItemViewHolder>{
     private final Context context;
@@ -80,18 +83,29 @@ public class adapterDispensarios extends RecyclerView.Adapter<adapterDispensario
         holder.marca.setText(item.getMarca());
         holder.modelo.setText(item.getModelo());
         holder.serie.setText(item.getSerie());
+
         holder.nomproducto1.setText(item.getNomproducto1());
         holder.producto1.setText(item.getProducto1());
+
+        String colorP1 = productoColores.getOrDefault(item.getNomproducto1(), "#000000");
+        holder.nomproducto1.setTextColor(Color.parseColor(colorP1));
+
         holder.nomproducto2.setText(item.getNomproducto2());
         holder.producto2.setText(item.getProducto2());
 
+        String colorP2 = productoColores.getOrDefault(item.getNomproducto2(), "#000000");
+        holder.nomproducto2.setTextColor(Color.parseColor(colorP2));
+
         if (item.getNomproducto3().isEmpty()){
+
             holder.nomproducto3.setVisibility(View.VISIBLE);
             holder.producto3.setVisibility(View.VISIBLE);
             holder.nomproducto3.setText(item.getNomproducto3());
             holder.producto3.setText(item.getProducto3());
-        }
+            String colorP3 = productoColores.getOrDefault(item.getNomproducto3(), "#000000");
+            holder.nomproducto3.setTextColor(Color.parseColor(colorP3));
 
+        }
 
     }
 
@@ -122,5 +136,24 @@ public class adapterDispensarios extends RecyclerView.Adapter<adapterDispensario
 
         }
     }
+
+    private static final Map<String, String> productoColores = new HashMap<String, String>() {{
+        put("BP REGULAR", "#4cd387");
+        put("BP PREMIUM", "#f64c0f");
+        put("EFITEC 87", "#4a8147");
+        put("EFITEC 92", "#b94128");
+        put("MAGNA", "#16BB43");
+        put("PEMEX MAGNA", "#16BB43");
+        put("PREMIUM", "#BB1616");
+        put("PEMEX PREMIUM", "#BB1616");
+        put("Shell Súper Regular", "#f7cc04");
+        put("V Power Premiun", "#e32f18");
+        put("G SUPER", "#77bd1e");
+        put("G PREMIUM", "#e11682");
+        put("G DIESEL", "#5d0e8b");
+        put("DIESEL", "#000000");
+        put("PEMEX DIESEL", "#000000");
+        put("Diésel", "#000000");
+    }};
 }
 

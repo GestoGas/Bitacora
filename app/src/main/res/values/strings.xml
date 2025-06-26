@@ -3,7 +3,7 @@
     <string name="descripcion_imagen">Descripción de la imagen</string>
 
     <!-- Login -->
-    <string name="login_usuario">Nombre usuario</string>
+    <string name="login_usuario">Nombre de usuario</string>
     <string name="login_contraseña">Contraseña</string>
     <string name="toggle_password_visibility">Visibilidad</string>
     <string name="login_entrar">Entrar</string>

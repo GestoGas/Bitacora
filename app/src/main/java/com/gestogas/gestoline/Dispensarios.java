@@ -114,8 +114,6 @@ public class Dispensarios extends BaseActivity {
                 }
             }
         });
-
-
     }
 
     @Override
@@ -185,10 +183,6 @@ public class Dispensarios extends BaseActivity {
                             recyclerView.smoothScrollToPosition(0);
                             DialogHelper.hideProgressDialog();
                             ocultarError();
-
-//                            adapter.notifyDataSetChanged();
-//                            DialogHelper.hideProgressDialog();
-//                            ocultarError();
 
                         } catch (JSONException e) {
                             DialogHelper.hideProgressDialog();

@@ -1,5 +1,7 @@
 package com.gestogas.gestoline.data;
 
+import java.util.Objects;
+
 public class dataUsuario {
 
     public int id;
@@ -17,5 +19,10 @@ public class dataUsuario {
 
     public String getNombreusuario() {
         return nombreusuario;
+    }
+
+    @Override
+    public String toString() {
+        return (this.id != 0) ?  nombreusuario : "Seleccione";
     }
 }
