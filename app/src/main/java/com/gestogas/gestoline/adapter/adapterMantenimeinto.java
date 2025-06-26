@@ -3,12 +3,14 @@ package com.gestogas.gestoline.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,7 @@ import com.gestogas.gestoline.DiffUtil.MantenimeintoDiff;
 import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivoDetalle;
 import com.gestogas.gestoline.R;
 import com.gestogas.gestoline.data.dataMantenimiento;
-import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoDos;
+import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoRevisar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,14 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
         String numVerificacion = item.getNumverificacion();
         String descripcion = item.getDescripcion();
 
+        if(item.getEstado().equals("0")){
+            holder.TxtEstado.setText("Pendiente");
+            holder.TxtEstado.setTextColor(Color.parseColor("#FFC107"));
+        }else{
+            holder.TxtEstado.setText("Finalizado");
+            holder.TxtEstado.setTextColor(Color.parseColor("#008000"));
+        }
+
         holder.TxtFolio.setText(item.getFolio());
         holder.TxtDescripcion.setText(item.getDescripcion());
         holder.TxtFechaHora.setText(item.getFecha()+ ", " + item.getHora());
@@ -90,27 +100,36 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
             @Override
             public void onClick(View view) {
 
-                if(idequipo.equals("0")) {
-
-                    Activity activity = (Activity) context;
-                    Intent didactic = new Intent(context, MantenimientoCorrectivoDetalle.class);
-                    didactic.putExtra("idMantenimiento", String.valueOf(id));
-                    activity.startActivityForResult(didactic, 1);
-
-                }else{
-
-                    if(numVerificacion.equals("1") || numVerificacion.equals("2")){
+                switch (idequipo) {
+                    case "0": {
 
                         Activity activity = (Activity) context;
-                        Intent didactic = new Intent(context, MantenimientoPreventivoDos.class);
+                        Intent didactic = new Intent(context, MantenimientoCorrectivoDetalle.class);
+                        didactic.putExtra("idMantenimiento", String.valueOf(id));
+                        activity.startActivityForResult(didactic, 1);
+
+                        break;
+                    }
+                    case "20":
+                    case "43": {
+
+
+
+                        break;
+                    }
+                    default: {
+
+                        Activity activity = (Activity) context;
+                        Intent didactic = new Intent(context, MantenimientoPreventivoRevisar.class);
                         didactic.putExtra("idMantenimiento", String.valueOf(id));
                         didactic.putExtra("NumeroEquipo", idequipo);
                         didactic.putExtra("NombreEquipo", descripcion);
                         didactic.putExtra("numVerificacion", numVerificacion);
+                        didactic.putExtra("estado", item.getEstado());
                         activity.startActivityForResult(didactic, 1);
 
+                        break;
                     }
-
                 }
 
             }
@@ -123,10 +142,11 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         View ItemView;
-        TextView TxtFolio, TxtDescripcion, TxtFechaHora;
+        TextView TxtEstado, TxtFolio, TxtDescripcion, TxtFechaHora;
         public ItemViewHolder(@NonNull View view) {
             super(view);
 
+            TxtEstado = view.findViewById(R.id.txtEstado);
             TxtFolio = view.findViewById(R.id.TxtFolio);
             TxtDescripcion = view.findViewById(R.id.TxtDescripcion);
             TxtFechaHora = view.findViewById(R.id.TxtFechaHora);
