@@ -13,6 +13,7 @@ navigationUi = "2.8.7"
 cardview = "1.0.0"
 playServicesAuth = "21.3.0"
 volley = "1.2.1"
+gridlayout = "1.1.0"
 
 [libraries]
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -33,6 +34,7 @@ cardview = { group = "androidx.cardview", name = "cardview", version.ref = "card
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesAuth" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
 
 
 [plugins]
