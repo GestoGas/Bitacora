@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.cardview)
     implementation(libs.volley)
     implementation(libs.play.services.auth)
+    implementation(libs.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
