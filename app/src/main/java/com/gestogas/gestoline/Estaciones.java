@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -75,6 +78,31 @@ public class Estaciones extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        // Usa el SearchView de androidx.appcompat
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return false;
+            }
+        });
+
+        return true;
+    }
+
     private void fetchEstacion(){
         String url = Constantes.URL_SERVIDOR + Constantes.FOLDER_ADMIN + "lista-estaciones.php?idGrupo=" + idgrupo;;
 
@@ -111,7 +139,7 @@ public class Estaciones extends BaseActivity {
                             }
 
                             // Notifica al adaptador que los datos han cambiado
-                            adapter.notifyDataSetChanged();
+                            adapter.updateData(itemList);
                             DialogHelper.hideProgressDialog();
                         } catch (JSONException e) {
                             ToastUtils.show(Estaciones.this, "No se encontro informacion.", ToastUtils.INFO);
