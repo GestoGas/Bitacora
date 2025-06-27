@@ -102,7 +102,7 @@ public class Home extends BaseActivity {
         }
 
         btnActualizar = findViewById(R.id.btnActualizar);
-        btnActualizar.setVisibility(Button.GONE);
+        btnActualizar.setVisibility(View.GONE);
 
         AppUpdater.cleanupOldApk(this);
 
