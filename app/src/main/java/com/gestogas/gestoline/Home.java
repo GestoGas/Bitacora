@@ -7,15 +7,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,11 +23,9 @@ import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivo;
 import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivo;
 import com.gestogas.gestoline.profeco.Profeco;
 import com.gestogas.gestoline.recepcion.RecepcionBitacora;
-import com.gestogas.gestoline.utils.AppUpdater;
 import com.gestogas.gestoline.utils.DialogHelper;
 import com.gestogas.gestoline.utils.LocationHelper;
 import com.gestogas.gestoline.utils.ToastUtils;
-import com.gestogas.gestoline.utils.UpdateChecker;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -36,7 +33,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -47,8 +43,6 @@ import android.widget.GridLayout;
 
 import com.gestogas.gestoline.databinding.ActivityHomeBinding;
 
-import java.io.File;
-
 public class Home extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -57,14 +51,16 @@ public class Home extends BaseActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private LocationHelper locationHelper;
 
-    private Button btnActualizar;
-    private static final String VERSION_URL = "https://demo.gestogas.com/bitacora-api-app/app/Configuracion/version.json";
+    private LinearLayout rootLayout;
+    private static final String VERSION_URL = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         locationHelper = new LocationHelper(this);
+        rootLayout = findViewById(R.id.root_home);
 
         String razon_social = AppController.getInstance().GetRazonSocial();
         String permiso_cre = AppController.getInstance().GetPermisoCre();
@@ -99,22 +95,6 @@ public class Home extends BaseActivity {
             AlertaUbicacion();
         }else{
             validacionUbicacion();
-        }
-
-        btnActualizar = findViewById(R.id.btnActualizar);
-        btnActualizar.setVisibility(Button.GONE);
-
-        AppUpdater.cleanupOldApk(this);
-
-        String installedVersion = getInstalledVersion();
-        String downloadedVersion = UpdateChecker.getLastDownloadedVersion(this);
-
-        if (downloadedVersion != null && UpdateChecker.isNewerVersion(downloadedVersion, installedVersion)) {
-            btnActualizar.setText("Instalar versión " + downloadedVersion);
-            btnActualizar.setVisibility(Button.VISIBLE);
-            btnActualizar.setOnClickListener(v -> installDownloadedApk());
-        } else {
-            checkForNewUpdate();
         }
 
         View headerView = navigationView.getHeaderView(0);
@@ -212,7 +192,7 @@ public class Home extends BaseActivity {
 
                 return false;
             }
-             private void SalirAplicacion() {
+            private void SalirAplicacion() {
                 AppController.getInstance().CerrarSession();
                 int SessionUsuario = AppController.getInstance().GetSession();
                 if (SessionUsuario == 0){
@@ -360,47 +340,5 @@ public class Home extends BaseActivity {
         }
     }
 
-    private void checkForNewUpdate() {
-        UpdateChecker.check(this, VERSION_URL, new UpdateChecker.UpdateListener() {
-            @Override
-            public void onUpdateAvailable(String version, String apkUrl) {
-                btnActualizar.setText("Actualizar a versión " + version);
-                btnActualizar.setVisibility(Button.VISIBLE);
-                btnActualizar.setOnClickListener(v -> {
-                    new AppUpdater(Home.this).startDownload(apkUrl, version);
-                });
-            }
-
-            @Override
-            public void onUpToDate() {
-                // No hacer nada
-            }
-
-            @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void installDownloadedApk() {
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), "miapp_update.apk");
-        if (file.exists()) {
-            Uri apkUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
-            Intent installIntent = new Intent(Intent.ACTION_VIEW);
-            installIntent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-            installIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(installIntent);
-        }
-    }
-
-    private String getInstalledVersion() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (Exception e) {
-            return "0.0.0";
-        }
-    }
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -129,8 +130,6 @@ public class MantenimientoPreventivo extends AppCompatActivity {
         Button opcion2 = view.findViewById(R.id.opcion2);
 
         opcion1.setOnClickListener(v -> {
-
-            bottomSheetDialog.show();
             Intent intent = new Intent(getApplicationContext(), MantenimientoPreventivo.class);
             intent.putExtra("estado", "0");
             startActivity(intent);
@@ -139,8 +138,6 @@ public class MantenimientoPreventivo extends AppCompatActivity {
         });
 
         opcion2.setOnClickListener(v -> {
-
-            bottomSheetDialog.show();
             Intent intent = new Intent(getApplicationContext(), MantenimientoPreventivo.class);
             intent.putExtra("estado", "1");
             startActivity(intent);
@@ -148,6 +145,7 @@ public class MantenimientoPreventivo extends AppCompatActivity {
 
         });
 
+        bottomSheetDialog.show();
     }
 
     private void fetchMantenimiento() {
@@ -187,6 +185,7 @@ public class MantenimientoPreventivo extends AppCompatActivity {
                             adapter.updateData(itemList);
                             ocultarError();
                             DialogHelper.hideProgressDialog();
+                            
 
                         } catch (JSONException e) {
                             DialogHelper.hideProgressDialog();
