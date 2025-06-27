@@ -138,7 +138,6 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
                         break;
                     }
                 }
-
             }
         });
 
