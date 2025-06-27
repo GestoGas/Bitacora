@@ -137,14 +137,22 @@ android:layout_height="wrap_content"
 android:text="CAMINO LOS BERROS - VALLE DE BRAVO KM. 12.600 RANCHERIA DE SAN MARTIN OBISPO, DONATO GUERRA"
 android:textColor="@android:color/black"
 android:textSize="16sp" />
-</LinearLayout>
 
 </LinearLayout>
+<Button
+android:id="@+id/btnActualizar"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Actualizar"
+android:visibility="gone"
+android:textSize="16sp"
+android:textColor="@android:color/white"
+android:backgroundTint="@android:color/holo_blue_dark"
+android:gravity="center"
+android:layout_marginTop="12dp" />
 
+</LinearLayout>
 </androidx.cardview.widget.CardView>
-
-
-
 
 <!-- Resto del contenido: ScrollView con GridLayout -->
 <ScrollView
