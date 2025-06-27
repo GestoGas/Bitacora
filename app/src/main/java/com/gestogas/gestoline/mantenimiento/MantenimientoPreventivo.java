@@ -130,6 +130,7 @@ public class MantenimientoPreventivo extends AppCompatActivity {
 
         opcion1.setOnClickListener(v -> {
 
+            bottomSheetDialog.show();
             Intent intent = new Intent(getApplicationContext(), MantenimientoPreventivo.class);
             intent.putExtra("estado", "0");
             startActivity(intent);
@@ -139,6 +140,7 @@ public class MantenimientoPreventivo extends AppCompatActivity {
 
         opcion2.setOnClickListener(v -> {
 
+            bottomSheetDialog.show();
             Intent intent = new Intent(getApplicationContext(), MantenimientoPreventivo.class);
             intent.putExtra("estado", "1");
             startActivity(intent);
@@ -146,7 +148,6 @@ public class MantenimientoPreventivo extends AppCompatActivity {
 
         });
 
-        bottomSheetDialog.show();
     }
 
     private void fetchMantenimiento() {

@@ -226,16 +226,15 @@ public class PersonalAutorizado extends BaseActivity {
         Button opcion2 = view.findViewById(R.id.opcion2);
 
         opcion1.setOnClickListener(v -> {
+            bottomSheetDialog.show();
             irPersonalAutorizado("RDP");
         });
 
         opcion2.setOnClickListener(v -> {
-
+            bottomSheetDialog.show();
             irPersonalAutorizado("MPC");
 
         });
-
-        bottomSheetDialog.show();
     }
 
        private void irPersonalAutorizado(String categoria){

@@ -19,6 +19,7 @@ import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivoDetalle;
 import com.gestogas.gestoline.R;
 import com.gestogas.gestoline.data.dataMantenimiento;
 import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoRevisar;
+import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoRevisarDetalle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +121,13 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
                     default: {
 
                         Activity activity = (Activity) context;
-                        Intent didactic = new Intent(context, MantenimientoPreventivoRevisar.class);
+                        Intent didactic;
+                        if("1".equals(item.getEstado())){
+                            didactic = new Intent(context, MantenimientoPreventivoRevisarDetalle.class);
+                        } else {
+                            didactic = new Intent(context, MantenimientoPreventivoRevisar.class);
+                        }
+
                         didactic.putExtra("idMantenimiento", String.valueOf(id));
                         didactic.putExtra("NumeroEquipo", idequipo);
                         didactic.putExtra("NombreEquipo", descripcion);
