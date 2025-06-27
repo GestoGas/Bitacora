@@ -6,6 +6,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,6 +42,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.cardview.widget.CardView;
+import android.widget.GridLayout;
 
 import com.gestogas.gestoline.databinding.ActivityHomeBinding;
 
@@ -136,9 +139,19 @@ public class Home extends BaseActivity {
         Direccion.setText(direccion);
 
         if (AppController.getInstance().GetConfigProfeco() == 1){
-            Button Profeco = findViewById(R.id.Profeco);
+            CardView Profeco = findViewById(R.id.Profeco);
             Profeco.setVisibility(View.VISIBLE);
         }
+
+        GridLayout gridLayout = findViewById(R.id.gridCards);
+        int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout.setColumnCount(4); // 4 columnas en horizontal
+        } else {
+            gridLayout.setColumnCount(2); // 1 columna en vertical
+        }
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

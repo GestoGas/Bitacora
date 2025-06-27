@@ -1,43 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dp">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:cardCornerRadius="16dp"
+android:layout_marginBottom="12dp">
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        app:cardElevation="0dp">
+<!-- Línea de color lateral izquierdo -->
+<View
+android:id="@+id/view_color"
+android:layout_width="4.5dp"
+android:layout_height="match_parent"
+android:background="@color/colorPrimary" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp">
+<!-- Contenedor principal del contenido -->
+<LinearLayout
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:orientation="horizontal"
+android:padding="12dp"
+android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/PermisoCre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="6pt"
-                android:fontFamily="sans-serif-light"
-                android:text="id"
-                android:textColor="@color/colorAccent"/>
+<!-- Ícono circular -->
+<ImageView
+android:id="@+id/iconoGasolinera2"
+android:layout_width="48dp"
+android:layout_height="48dp"
+android:padding="10dp"
+android:src="@drawable/ic_business"
+android:layout_marginEnd="12dp" />
 
-            <TextView
-                android:id="@+id/RazonSocial"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="nombre"
-                android:textSize="10pt"
-                app:layout_constraintTop_toBottomOf="@+id/PermisoCre"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/colorPrimary"/>
+<!-- Textos -->
+<LinearLayout
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<TextView
+android:id="@+id/PermisoCre"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="PL/20065/EXP/ES/2017"
+android:textSize="14sp"
+android:textColor="#757575" />
 
-    </androidx.cardview.widget.CardView>
+<TextView
+android:id="@+id/RazonSocial"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="LAS SABANAS SUPER SERVICIO S.A. DE C.V."
+android:textSize="16sp"
+android:textStyle="bold" />
+</LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!-- Flecha -->
+<ImageView
+android:id="@+id/iconoGasolinera3"
+android:layout_width="24dp"
+android:layout_height="24dp"
+android:src="@drawable/ic_arrow_right"/>
+
+</LinearLayout>
+</LinearLayout>
+
+</androidx.cardview.widget.CardView>

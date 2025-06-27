@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="190dp"
-    android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@drawable/side_nav_bar"
+android:orientation="vertical"
+android:padding="16dp"
+android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="10dp"
-        app:srcCompat="@drawable/logo_gbitacora" />
+<ImageView
+android:id="@+id/logoEmpresa"
+android:layout_width="284dp"
+android:layout_height="120dp"
+android:layout_marginTop="12dp"
+android:src="@drawable/logo_gbitacora" />
 
-    <TextView
-        android:id="@+id/navRazonSocial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:textSize="9pt"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/black"/>
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:gravity="center_vertical"
+android:layout_marginTop="8dp"
+android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/navNomUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:textSize="7pt"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/black"/>
+<ImageView
+android:id="@+id/imageAvatar"
+android:layout_width="48dp"
+android:layout_height="48dp"
+android:scaleType="centerCrop"
+android:src="@drawable/ic_user"
+android:background="@drawable/circle_background"
+android:padding="10dp"
+android:layout_marginEnd="12dp"/>
+
+<LinearLayout
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:orientation="vertical">
+
+<TextView
+android:id="@+id/navRazonSocial"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Aqui va la Razón social"
+android:textColor="@android:color/darker_gray"
+android:textSize="14sp"/>
+
+<TextView
+android:id="@+id/navNomUsuario"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Aqui va el nombre completo"
+android:textColor="@android:color/black"
+android:textStyle="bold"
+android:layout_marginTop="2dp"
+android:textSize="16sp"/>
+
+</LinearLayout>
+</LinearLayout>
 
 </LinearLayout>
