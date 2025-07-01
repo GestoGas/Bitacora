@@ -10,7 +10,9 @@ android:gravity="center"
 android:elevation="0dp"
 android:clipToPadding="false"
 android:backgroundTint="#FFCDD2"
-android:layout_marginBottom="16dp">
+android:layout_marginBottom="16dp"
+android:visibility="gone"
+>
 
 <ImageView
 android:layout_width="24dp"
