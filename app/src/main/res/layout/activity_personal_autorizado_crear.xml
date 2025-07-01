@@ -83,29 +83,28 @@ android:text="Nombre completo del personal:"
 android:textColor="#757575"
 android:textSize="14sp" />
 
-<com.google.android.material.textfield.TextInputLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginTop="2dp"
-android:hint="Selecciona el personal..."
-app:boxCornerRadiusBottomEnd="12dp"
-app:boxCornerRadiusBottomStart="12dp"
-app:boxCornerRadiusTopEnd="12dp"
-app:boxCornerRadiusTopStart="12dp"
-app:endIconMode="dropdown_menu"
-app:startIconDrawable="@drawable/ic_user"
-android:tint="#79747e"
->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:hint="Selecciona el personal..."
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:startIconDrawable="@drawable/ic_user"
+        android:tint="#79747e">
 
-<AutoCompleteTextView
-android:id="@+id/NombrePersonal"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:focusable="false"
-android:inputType="none"
-android:padding="15dp"
-android:textSize="15sp" />
-</com.google.android.material.textfield.TextInputLayout>
+        <AutoCompleteTextView
+            android:id="@+id/NombrePersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:inputType="none"
+            android:padding="15dp"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 <TextView

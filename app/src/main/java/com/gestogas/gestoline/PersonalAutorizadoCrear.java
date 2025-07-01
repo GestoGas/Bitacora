@@ -34,6 +34,7 @@ import com.gestogas.gestoline.utils.DialogHelper;
 import com.gestogas.gestoline.utils.DistanciaUtils;
 import com.gestogas.gestoline.utils.TecladoUtils;
 import com.gestogas.gestoline.utils.ToastUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -143,31 +144,40 @@ public class PersonalAutorizadoCrear extends AppCompatActivity {
     }
 
     private void PersonalAutorizado() {
-
         DialogHelper.showProgressDialog(this);
+
         String url = Constantes.URL_SERVIDOR + "Autorizacion/autorizacion-recepcion.php?idEstacion=" + idEstacion + "&Categoria=" + categoria;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
-                    @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            // Limpia la lista actual
+                            opcionesList.clear(); // Asegúrate de limpiar la lista si ya tenía datos
+                            nombreIdMap.clear();  // Limpia el mapa si aplica
 
-                            // Recorre el JSONArray
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
 
                                 String idUsuario = jsonObject.getString("IdUsuario");
                                 String nombreUsuario = jsonObject.getString("NombreUsuario");
+
                                 opcionesList.add(nombreUsuario);
                                 nombreIdMap.put(nombreUsuario, idUsuario);
-
                             }
 
-                            adapter = new ArrayAdapter<>(PersonalAutorizadoCrear.this, android.R.layout.simple_dropdown_item_1line, opcionesList);
-                            NombrePersonal.setAdapter(adapter);
+                            // Habilitar el click del AutoCompleteTextView para mostrar el diálogo
+                            NombrePersonal.setOnClickListener(v -> {
+                                int selectedIndex = opcionesList.indexOf(NombrePersonal.getText().toString());
+
+                                new MaterialAlertDialogBuilder(PersonalAutorizadoCrear.this)
+                                        .setTitle("Selecciona el personal")
+                                        .setSingleChoiceItems(opcionesList.toArray(new String[0]), selectedIndex, (dialog, which) -> {
+                                            NombrePersonal.setText(opcionesList.get(which));
+                                            dialog.dismiss();
+                                        })
+                                        .show();
+                            });
 
                             DialogHelper.hideProgressDialog();
                         } catch (JSONException e) {
@@ -183,8 +193,8 @@ public class PersonalAutorizadoCrear extends AppCompatActivity {
                 });
 
         requestQueue.add(jsonArrayRequest);
-
     }
+
 
     private void validaPersonal() {
         if (NombrePersonal.getText().toString().isEmpty()) {
