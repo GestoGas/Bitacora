@@ -67,13 +67,9 @@ import java.util.Map;
 
 public class MantenimientoPreventivoRevisar extends BaseActivity {
     int idEstacion, IdUsuario, idPuesto, estado, distMax = 0;
-    String PersonalRealiza, idMantenimiento, NumeroEquipo, NombreEquipo, valExterno = "";
-    String Verificar1, Verificar2, firmaBase64, nombreImagen = "";
-    String ResultadoCheck1 = "", ResultadoCheck2 = "";
-    TextView TxtTitulo, TxtVerificar1, TxtVerificar2, TxtSublista1,TxtSublista2,TxtSublista3,TxtSublista4,TxtSublista5;
-    CheckBox Si_1, No_1,
-            Si_2, No_2;
-
+    String idMantenimiento, NumeroEquipo, NombreEquipo, valExterno = "";
+    String firmaBase64, nombreImagen = "";
+    TextView TxtSublista1,TxtSublista2,TxtSublista3,TxtSublista4,TxtSublista5;
     CheckBox Interno,Externo;
     TextView TxtPersonalExterno;
     ImageView ImageFirma;

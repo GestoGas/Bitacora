@@ -171,7 +171,26 @@ public class Extintores extends BaseActivity {
                                 String pesokg = jsonObject.getString("pesokg");
 
                                 // Crea un objeto Item y lo añade a la lista
-                                dataExtintores item = new dataExtintores(idextintor,noextintor,ubicacion,fecha,fecharecarga,tipoextintor,pesokg);
+                                dataExtintores item = new dataExtintores(
+                                        idextintor,
+                                        noextintor,
+                                        ubicacion,
+                                        fecha,
+                                        fecharecarga,
+                                        tipoextintor,
+                                        pesokg,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null
+                                        );
                                 itemList.add(item);
                             }
 
