@@ -18,6 +18,8 @@ import com.gestogas.gestoline.DiffUtil.MantenimeintoDiff;
 import com.gestogas.gestoline.mantenimiento.MantenimientoCorrectivoDetalle;
 import com.gestogas.gestoline.R;
 import com.gestogas.gestoline.data.dataMantenimiento;
+import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoExtintor;
+import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoExtintorDetalle;
 import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoRevisar;
 import com.gestogas.gestoline.mantenimiento.MantenimientoPreventivoRevisarDetalle;
 
@@ -111,7 +113,26 @@ public class adapterMantenimeinto extends RecyclerView.Adapter<adapterMantenimei
 
                         break;
                     }
-                    case "20":
+                    case "20":{
+
+                        Activity activity = (Activity) context;
+                        Intent didactic;
+                        if("1".equals(item.getEstado())){
+                            didactic = new Intent(context, MantenimientoPreventivoExtintorDetalle.class);
+                        } else {
+                            didactic = new Intent(context, MantenimientoPreventivoExtintor.class);
+                        }
+
+                        didactic.putExtra("idMantenimiento", String.valueOf(id));
+                        didactic.putExtra("NumeroEquipo", idequipo);
+                        didactic.putExtra("NombreEquipo", descripcion);
+                        didactic.putExtra("numVerificacion", numVerificacion);
+                        didactic.putExtra("NumeroPagina","1");
+                        didactic.putExtra("estado", item.getEstado());
+                        activity.startActivityForResult(didactic, 1);
+
+                        break;
+                    }
                     case "43": {
 
 

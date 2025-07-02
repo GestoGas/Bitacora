@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        tools:ignore="MissingConstraints">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:padding="5dp"
+           tools:ignore="UselessLeaf">
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="5dp"
+               app:layout_constraintBottom_toBottomOf="@+id/NuExtintor"
+               app:layout_constraintTop_toBottomOf="@+id/NuExtintor">
+
+               <TextView
+                   android:id="@+id/textView1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="No. De extintor "
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/NuExtintor"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   app:layout_constraintStart_toStartOf="@+id/textView1"
+                   app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+               <TextView
+                   android:id="@+id/textView2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Tipo de Extintor"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/TipoExtintor"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+               <TextView
+                   android:id="@+id/textView18"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Ubicación"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   app:layout_constraintStart_toStartOf="@+id/NuExtintor"
+                   app:layout_constraintTop_toBottomOf="@+id/NuExtintor" />
+
+               <TextView
+                   android:id="@+id/Ubicacion"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+               <TextView
+                   android:id="@+id/textView19"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Peso Kg"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/TipoExtintor" />
+
+               <TextView
+                   android:id="@+id/PesoKg"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="sans-serif-light"
+                   android:textSize="16dp"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="?android:attr/listDivider"
+               android:layout_marginTop="5dp"
+               android:layout_marginBottom="5dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Fecha:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"/>
+
+           <TextView
+               android:id="@+id/TxtFecha"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Manómetro:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/TxtManometro"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Boquilla de descarga:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/TxtBoquillaDescarga"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Manguera:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/TxtManguera"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Funcionalidad:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"
+               android:layout_marginTop="5dp"/>
+
+           <TextView
+               android:id="@+id/TxtFuncionalidad"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Observaciones:"
+               android:textColor="@color/colorPrimary"
+               android:fontFamily="sans-serif-light"
+               android:textSize="18dp"
+               android:layout_marginTop="5dp"
+               />
+
+           <TextView
+               android:id="@+id/TxtObservaciones"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif-light"
+               android:textSize="16dp"/>
+
+
+       </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
