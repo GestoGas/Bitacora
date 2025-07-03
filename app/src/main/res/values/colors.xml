@@ -11,5 +11,6 @@
     <color name="colorBorder">#B6B6B6FF</color>
     <color name="color_inactivo">#B6898989</color>
 
+    <color name="mi_color_hint_personalizado">#9E9E9E</color>
 
 </resources>

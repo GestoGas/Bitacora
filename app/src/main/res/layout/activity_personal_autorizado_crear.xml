@@ -93,7 +93,8 @@ android:textSize="14sp" />
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusTopStart="12dp"
         app:startIconDrawable="@drawable/ic_user"
-        android:tint="#79747e">
+        app:startIconTint="#79747e"
+        android:textColorHint="#A6A6A6">
 
         <AutoCompleteTextView
             android:id="@+id/NombrePersonal"
