@@ -17,9 +17,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
@@ -55,12 +55,12 @@ public class ProfecoCrearEditar extends BaseActivity {
     int idEstacion, idPuesto;
     private final Calendar calendar = Calendar.getInstance();
     EditText Fecha, Hora, Motivo, TxtObservaciones;
-    ArrayList<String> lado, responsable;
+    ArrayList<String> lado;
     List<dataDispensarios> listaDispensarios = new ArrayList<>();
     List<dataUsuario> listaResponsable = new ArrayList<>();
-    Spinner SpinnerDispensario, SpinnerLado,SpinnerResponsable;
-    private String ProductoUno, ProductoDos, ProductoTres,ValProducto1="",ValProducto2="",ValProducto3="", dispensarioSeleccionado;
-    Switch Producto1, Producto2, Producto3;
+    Spinner SpinnerDispensario, SpinnerLado, SpinnerResponsable;
+    private String ProductoUno, ProductoDos, ProductoTres, ValProducto1 = "", ValProducto2 = "", ValProducto3 = "";
+    SwitchCompat Producto1, Producto2, Producto3;
     Button BtnGuardar;
     double latitudeEstacion = 0, longitudeEstacion = 0, latitudeEquipo = 0, longitudeEquipo = 0;
     int distMax = 0;
@@ -77,6 +77,12 @@ public class ProfecoCrearEditar extends BaseActivity {
         ProductoUno = AppController.getInstance().GetProductoUno();
         ProductoDos = AppController.getInstance().GetProductoDos();
         ProductoTres = AppController.getInstance().GetProductoTres();
+
+        // Evitar NullPointerException:
+        if (ProductoUno == null) ProductoUno = "";
+        if (ProductoDos == null) ProductoDos = "";
+        if (ProductoTres == null) ProductoTres = "";
+
         latitudeEquipo = Double.parseDouble(AppController.getInstance().GetLatitudEquipo());
         longitudeEquipo = Double.parseDouble(AppController.getInstance().GetLongitudEquipo());
         distMax = Integer.parseInt(AppController.getInstance().GetDistMax());
@@ -105,21 +111,21 @@ public class ProfecoCrearEditar extends BaseActivity {
         BtnGuardar = findViewById(R.id.BtnGuardar);
         LinearLayout layoutFueraRango = findViewById(R.id.layoutFueraRango);
 
-        lado  = new ArrayList<>();
+        lado = new ArrayList<>();
         lado.add("Seleccione");
         lado.add("A");
         lado.add("B");
-        SpinnerLado.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, lado));
+        SpinnerLado.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lado));
 
-        if (ProductoUno.isEmpty()){
+        if (ProductoUno.isEmpty()) {
             Producto1.setVisibility(View.GONE);
         }
 
-        if (ProductoDos.isEmpty()){
+        if (ProductoDos.isEmpty()) {
             Producto2.setVisibility(View.GONE);
         }
 
-        if (ProductoTres.isEmpty()){
+        if (ProductoTres.isEmpty()) {
             Producto3.setVisibility(View.GONE);
         }
 
@@ -131,7 +137,6 @@ public class ProfecoCrearEditar extends BaseActivity {
         ListaDispensario();
         ListaResponsable();
 
-
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -142,16 +147,12 @@ public class ProfecoCrearEditar extends BaseActivity {
             }
         };
 
-        Fecha.setOnClickListener(v -> {
-            new DatePickerDialog(this, dateSetListener,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)).show();
-        });
+        Fecha.setOnClickListener(v -> new DatePickerDialog(this, dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show());
 
-        Hora.setOnClickListener(v -> {
-            ObtenerHora();
-        });
+        Hora.setOnClickListener(v -> ObtenerHora());
 
         boolean validarDistancia = DistanciaUtils.validarDistancia(
                 getApplicationContext(),
@@ -163,7 +164,6 @@ public class ProfecoCrearEditar extends BaseActivity {
                 distMax
         );
 
-
         if (validarDistancia) {
             BtnGuardar.setEnabled(true);
             layoutFueraRango.setVisibility(View.GONE);
@@ -173,12 +173,7 @@ public class ProfecoCrearEditar extends BaseActivity {
             BtnGuardar.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.color_inactivo));
         }
 
-        BtnGuardar.setOnClickListener(v -> {
-
-            validaProfeco();
-
-        });
-
+        BtnGuardar.setOnClickListener(v -> validaProfeco());
     }
 
     private void fechaCalendario() {
@@ -213,25 +208,15 @@ public class ProfecoCrearEditar extends BaseActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
-                         JSONArray jsonArray = new JSONArray(response);
+                        JSONArray jsonArray = new JSONArray(response);
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
                             String id = obj.getString("id");
                             String nodispensario = obj.getString("nodispensario");
                             String marca = obj.getString("marca");
-                            String modelo = obj.getString("modelo");
-                            String serie = obj.getString("serie");
-
-                            String nomproducto1 = obj.getString("nomproducto1");
-                            String producto1 = obj.getString("producto1");
-                            String nomproducto2 = obj.getString("nomproducto2");
-                            String producto2 = obj.getString("producto2");
-                            String nomproducto3 = obj.getString("nomproducto3");
-                            String producto3 = obj.getString("producto3");
-
+                            // Ignorando otros campos no usados
                             listaDispensarios.add(new dataDispensarios(id, nodispensario, marca, "", "", "", "", "", "", "", ""));
-
                         }
 
                         ArrayAdapter<dataDispensarios> adapter = new ArrayAdapter<>(
@@ -244,10 +229,12 @@ public class ProfecoCrearEditar extends BaseActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        hideProgressDialog();
                     }
                 },
                 error -> {
                     error.printStackTrace();
+                    hideProgressDialog();
                 }
         );
 
@@ -255,7 +242,6 @@ public class ProfecoCrearEditar extends BaseActivity {
     }
 
     private void ListaResponsable() {
-
         listaResponsable.clear();
         listaResponsable.add(new dataUsuario(0, ""));
         String url = URL_SERVIDOR + "Dispensario/lista-dispensario-responsable.php?idEstacion=" + idEstacion;
@@ -273,7 +259,6 @@ public class ProfecoCrearEditar extends BaseActivity {
                             String nombre = obj.getString("nombre");
 
                             listaResponsable.add(new dataUsuario(Integer.parseInt(id), nombre));
-
                         }
 
                         ArrayAdapter<dataUsuario> adapter = new ArrayAdapter<>(
@@ -284,16 +269,16 @@ public class ProfecoCrearEditar extends BaseActivity {
 
                         SpinnerResponsable.setAdapter(adapter);
 
-                        DialogHelper.hideProgressDialog();
+                        hideProgressDialog();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        DialogHelper.hideProgressDialog();
+                        hideProgressDialog();
                     }
                 },
                 error -> {
                     error.printStackTrace();
-                    DialogHelper.hideProgressDialog();
+                    hideProgressDialog();
                 }
         );
 
@@ -307,7 +292,7 @@ public class ProfecoCrearEditar extends BaseActivity {
         } else if (Hora.getText().toString().isEmpty()) {
             Hora.setError("Seleccione una hora");
             ToastUtils.show(this, "Seleccione una hora", ToastUtils.INFO);
-        }else{
+        } else {
 
             dataDispensarios dispensarioSeleccionado = (dataDispensarios) SpinnerDispensario.getSelectedItem();
             if (dispensarioSeleccionado.getId().equals("0")) {
@@ -347,6 +332,11 @@ public class ProfecoCrearEditar extends BaseActivity {
         dataUsuario responsableSeleccionado = (dataUsuario) SpinnerResponsable.getSelectedItem();
         String idResponsable = String.valueOf(responsableSeleccionado.getId());
 
+        // Reiniciar para evitar que valores queden de operaciones anteriores
+        ValProducto1 = "";
+        ValProducto2 = "";
+        ValProducto3 = "";
+
         if (Producto1.isChecked()) {
             ValProducto1 = ProductoUno;
         }
@@ -358,48 +348,39 @@ public class ProfecoCrearEditar extends BaseActivity {
         }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SERVIDOR + "Dispensario/agregar-bitacora-dispensario.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                response -> {
+                    try {
 
-                        try {
+                        JSONArray jsonarray = new JSONArray(response);
+                        int estado = 0;
+                        String mensaje = "";
 
-                            JSONArray jsonarray = new JSONArray(response);
-                            int estado = 0;
-                            String mensaje = "";
-
-                            if (jsonarray.length() > 0) {
-                                JSONObject obj = jsonarray.getJSONObject(0);
-                                estado = obj.getInt("estado");
-                                mensaje = obj.getString("mensaje");
-                            }
-
-                            if (estado == 1) {
-
-                                ToastUtils.showAndThen(ProfecoCrearEditar.this, mensaje, ToastUtils.SUCCESS, () -> {
-                                    setResult(RESULT_OK);
-                                    finish();
-                                });
-
-                            } else {
-                                hideProgressDialog();
-                                ToastUtils.show(ProfecoCrearEditar.this, mensaje, ToastUtils.ERROR);
-
-                            }
-
-                        } catch (Exception e) {
-                            Log.d("respuesta", e.toString());
-                            ToastUtils.show(ProfecoCrearEditar.this, e.toString(), ToastUtils.INFO);
-                            hideProgressDialog();
+                        if (jsonarray.length() > 0) {
+                            JSONObject obj = jsonarray.getJSONObject(0);
+                            estado = obj.getInt("estado");
+                            mensaje = obj.getString("mensaje");
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        ToastUtils.show(ProfecoCrearEditar.this, error.toString(), ToastUtils.INFO);
+
+                        if (estado == 1) {
+                            ToastUtils.showAndThen(ProfecoCrearEditar.this, mensaje, ToastUtils.SUCCESS, () -> {
+                                setResult(RESULT_OK);
+                                finish();
+                            });
+
+                        } else {
+                            hideProgressDialog();
+                            ToastUtils.show(ProfecoCrearEditar.this, mensaje, ToastUtils.ERROR);
+                        }
+
+                    } catch (Exception e) {
+                        Log.d("respuesta", e.toString());
+                        ToastUtils.show(ProfecoCrearEditar.this, e.toString(), ToastUtils.INFO);
                         hideProgressDialog();
                     }
+                },
+                error -> {
+                    ToastUtils.show(ProfecoCrearEditar.this, error.toString(), ToastUtils.INFO);
+                    hideProgressDialog();
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -407,13 +388,13 @@ public class ProfecoCrearEditar extends BaseActivity {
                 params.put("idEstacion", String.valueOf(idEstacion));
                 params.put("fecha", fecha);
                 params.put("hora", hora);
-                params.put("dispensario",idDispensario);
+                params.put("dispensario", idDispensario);
                 params.put("lado", lado);
-                params.put("producto1",ValProducto1);
-                params.put("producto2",ValProducto2);
-                params.put("producto3",ValProducto3);
+                params.put("producto1", ValProducto1);
+                params.put("producto2", ValProducto2);
+                params.put("producto3", ValProducto3);
                 params.put("motivo", motivo);
-                params.put("responsable",idResponsable);
+                params.put("responsable", idResponsable);
                 params.put("observaciones", observaciones);
 
                 return params;
@@ -432,10 +413,8 @@ public class ProfecoCrearEditar extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK))
-        {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
         }
         return super.onKeyDown(keyCode, event);
